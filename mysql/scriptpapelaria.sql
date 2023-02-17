@@ -1,4 +1,5 @@
 CREATE SCHEMA `bancopapelaria` ;
+USE `bancopapelaria`;
 
 CREATE TABLE `bancopapelaria`.`tb_usuario` (
   `idfuncionario` INT NOT NULL AUTO_INCREMENT,
@@ -9,8 +10,14 @@ CREATE TABLE `bancopapelaria`.`tb_usuario` (
   `status` VARCHAR(45) NOT NULL DEFAULT 'Ativo',
   `dataAdmissao` DATETIME NOT NULL,
   PRIMARY KEY (`idfuncionario`));
-  
-ALTER TABLE `bancopapelaria`.`tb_cliente` 
+
+CREATE TABLE `bancopapelaria`.`tb_cliente` (
+  `CPF` VARCHAR(11) NOT NULL,
+  `nome` VARCHAR(45) NOT NULL,
+  `e-mail` VARCHAR(45) NOT NULL,
+  `dataCadastro` DATETIME NOT NULL,
+  PRIMARY KEY (`CPF`));
+  ALTER TABLE `bancopapelaria`.`tb_cliente` 
 ADD INDEX `fkFuncionario_idx` (`idfuncionario` ASC) VISIBLE;
 ;
 ALTER TABLE `bancopapelaria`.`tb_cliente` 
@@ -19,6 +26,14 @@ ADD CONSTRAINT `fkFuncionario`
   REFERENCES `bancopapelaria`.`tb_usuario` (`idfuncionario`)
   ON DELETE NO ACTION
   ON UPDATE NO ACTION;
+
+CREATE TABLE `bancopapelaria`.`tb_usuario` (
+  `idProduto` INT NOT NULL AUTO_INCREMENT,
+  `nomeProduto` VARCHAR(45) NOT NULL,
+  `quantidade` VARCHAR(45) NOT NULL DEFAULT 'Vendedor',
+  `preco` DOUBLE(5,2) NOT NULL,
+  `comissao` DOUBLE(5,2) NOT NULL,
+  PRIMARY KEY (`idProduto`));
 
 CREATE TABLE `bancopapelaria`.`tb_compra` (
   `idCompra` INT NOT NULL,
